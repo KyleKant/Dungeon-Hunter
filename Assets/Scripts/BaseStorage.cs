@@ -5,7 +5,7 @@ using UnityEngine;
 public class BaseStorage : MonoBehaviour, IEquipmentObjectParent
 {
   [SerializeField] public Transform baseStorageTopPoint;
-  private EquipmentObject equipmentObject;
+  public EquipmentObject equipmentObject;
   public virtual void Interact(Player player)
   {
     Debug.LogError("BaseStorage.Interact();");
@@ -21,11 +21,10 @@ public class BaseStorage : MonoBehaviour, IEquipmentObjectParent
   }
   public void ClearEquipmentObject()
   {
-
     equipmentObject = null;
   }
 
-  public EquipmentObject GetEquipmentObject()
+  public EquipmentObject GetEquipmentObject(EquipmentObject equipmentObject)
   {
     return equipmentObject;
   }

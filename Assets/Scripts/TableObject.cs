@@ -17,22 +17,15 @@ public class TableObject : BaseStorage
       if (player.HasEquipmentObject())
       {
         // player is carring something
-        if (player.GetChildObjectCount(player.transform.GetChild(1)) != 0)
+        if (player.equipmentObjectList.Count != 0)
         {
-          Debug.Log("player.GetEquipmentObject(); " + player.GetEquipmentObject());
-          List<Transform> equipmentObjectList = new List<Transform>();
-          // Debug.Log("Child of player: " + player.transform.GetChild(1));
-          equipmentObjectList = player.GetChildObjectList(player.transform.GetChild(1), player.GetChildObjectCount(player.transform.GetChild(1)));
-          Transform equipmentObjectDrop = equipmentObjectList[0];
-          // Debug.Log("equipmentObjectDrop: " + equipmentObjectDrop);
-          equipmentObjectList.Remove(equipmentObjectDrop);
-          equipmentObjectDrop.SetParent(this.transform.Find(TABLE_TOP_POINT));
-          equipmentObjectDrop.transform.position = baseStorageTopPoint.position;
-          // Debug.Log("Parent of equipment: ");
-          equipmentObjectList.Clear();
+          EquipmentObject equipmentObjectFirstDrop = player.equipmentObjectList[0];
+          player.equipmentObjectList.Remove(equipmentObjectFirstDrop);
+          // equipmentObjectFirstDrop.transform.SetParent(this.transform);
+          player.GetEquipmentObject(equipmentObjectFirstDrop).SetEquipmentObjectParent(this);
+          // player.SetEquipmentObject()
+          this.SetEquipmentObject(equipmentObjectFirstDrop);
         }
-        // player.GetEquipmentObject().SetEquipmentObjectParent(this);
-        // Debug.Log("player.GetEquipmentObject(); " + player.GetEquipmentObject());
       }
       else
       {
@@ -44,16 +37,15 @@ public class TableObject : BaseStorage
       // There is something on the table object
       if (!player.HasEquipmentObject())
       {
-        Debug.Log("Here");
         // player is not carring something
-        this.GetEquipmentObject().SetEquipmentObjectParent(player);
+        this.GetEquipmentObject(equipmentObject).SetEquipmentObjectParent(player);
+        Debug.Log("EquipmentObject: " + equipmentObject);
       }
       else
       {
         // player is carring something
+        this.GetEquipmentObject(equipmentObject).SetEquipmentObjectParent(player);
       }
     }
-    Debug.Log("Player have something? " + player.HasEquipmentObject());
-    Debug.Log("Table have something? " + HasEquipmentObject());
   }
 }

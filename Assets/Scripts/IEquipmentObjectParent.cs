@@ -6,7 +6,7 @@ public interface IEquipmentObjectParent
 {
   public Transform GetEquipmentObjectFollowTransform();
   public void SetEquipmentObject(EquipmentObject equipmentObject);
-  public EquipmentObject GetEquipmentObject();
+  public EquipmentObject GetEquipmentObject(EquipmentObject equipmentObject);
   public void ClearEquipmentObject();
   public bool HasEquipmentObject();
 }
