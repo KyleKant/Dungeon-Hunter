@@ -35,7 +35,6 @@ public class Player : MonoBehaviour, IEquipmentObjectParent
   private bool isNormalAttack02;
   private int pressedNumlockCounter = 0;
   private int clickLeftMouseCounter = 0;
-  private int equipmentObjectCount = 0;
   private Vector3 lastInteractDir;
   private List<Transform> equipmentObjectDropList = new List<Transform>();
 
@@ -68,8 +67,6 @@ public class Player : MonoBehaviour, IEquipmentObjectParent
   {
     HandleMovement();
     HandleInteractions();
-    Debug.Log("equipment: " + equipmentObject);
-    // equipmentObjectCount = GetEquipmentObjectCountWhichPlayerCarring();
   }
 
   private void HandleDropEquipment()
@@ -83,23 +80,11 @@ public class Player : MonoBehaviour, IEquipmentObjectParent
         floorObject = GameObject.FindObjectOfType<FloorObject>();
         equipmentObjectFirstDrop.transform.SetParent(floorObject.transform.Find(EQUIPMENT_OBJECT_DROP_POINT));
         equipmentObjectFirstDrop.transform.position = equipmentObjectDropPoint.position;
-        // equipmentObject = equipmentObjectFirstDrop;
       }
       if (equipmentObjectList.Count == 0)
       {
         ClearEquipmentObject();
       }
-      // if (equipmentObjectCount != 0)
-      // {
-      //   equipmentObjectDropList = GetChildObjectList(
-      //     transform.Find(EQUIPMENT_OBJECT_HOLD_POINT),
-      //     equipmentObjectCount);
-      //   Transform equipmentObjectFirstDrop = equipmentObjectDropList[0];
-      //   equipmentObjectDropList.Remove(equipmentObjectFirstDrop);
-      //   DropEquipment(equipmentObjectFirstDrop);
-      //   equipmentObjectDropList.Clear();
-
-      // }
     }
     else
     {
@@ -107,21 +92,6 @@ public class Player : MonoBehaviour, IEquipmentObjectParent
     }
   }
 
-  // public int GetChildObjectCount(Transform parentObject)
-  // {
-  //   int childObjectCount = parentObject.childCount;
-  //   return childObjectCount;
-  // }
-  // public List<Transform> GetChildObjectList(Transform parentObject, int childObjectCount)
-  // {
-  //   List<Transform> childObjectList = new List<Transform>();
-  //   for (int index = 0; index < childObjectCount; index++)
-  //   {
-  //     childObjectList.Add(parentObject.GetChild(index));
-  //   }
-
-  //   return childObjectList;
-  // }
   private void HandleInteractions()
   {
     float interactDistance = 2f;
@@ -322,12 +292,6 @@ public class Player : MonoBehaviour, IEquipmentObjectParent
     this.equipmentObject = equipmentObject;
     equipmentObjectList.Add(this.equipmentObject);
   }
-  // public Transform GetEquipmentObjectFirst()
-  // {
-  //   List<Transform> equipmentObjectList = GetChildObjectList(transform.Find(EQUIPMENT_OBJECT_HOLD_POINT), GetChildObjectCount(transform.Find(EQUIPMENT_OBJECT_HOLD_POINT)));
-  //   Transform equipmentObjectFirst = equipmentObjectList[0];
-  //   return equipmentObjectFirst;
-  // }
   public EquipmentObject GetEquipmentObject(EquipmentObject equipmentObject)
   {
     return equipmentObject;
