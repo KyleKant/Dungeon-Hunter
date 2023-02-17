@@ -16,7 +16,7 @@ public class TableObject : BaseStorage
       // There is nothing on the table object
       if (player.HasEquipmentObject())
       {
-        // player is carring something
+        // player is carrying something
         if (player.equipmentObjectList.Count != 0)
         {
           EquipmentObject equipmentObjectFirstDrop = player.equipmentObjectList[0];
@@ -29,7 +29,7 @@ public class TableObject : BaseStorage
       }
       else
       {
-        // player is not carring something
+        // player is not carrying something
       }
     }
     else
@@ -37,13 +37,13 @@ public class TableObject : BaseStorage
       // There is something on the table object
       if (!player.HasEquipmentObject())
       {
-        // player is not carring something
+        // player is not carrying something
         this.GetEquipmentObject(equipmentObject).SetEquipmentObjectParent(player);
         Debug.Log("EquipmentObject: " + equipmentObject);
       }
       else
       {
-        // player is carring something
+        // player is carrying something
         this.GetEquipmentObject(equipmentObject).SetEquipmentObjectParent(player);
       }
     }

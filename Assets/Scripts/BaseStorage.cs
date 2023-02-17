@@ -10,9 +10,9 @@ public class BaseStorage : MonoBehaviour, IEquipmentObjectParent
   {
     Debug.LogError("BaseStorage.Interact();");
   }
-  // public int GetEquipmentObjectCountWhichCarring(){
-  //     int equipmentObjectCountWhichCarring = transform.childCount;
-  //     return equipmentObjectCountWhichCarring;
+  // public int GetEquipmentObjectCountWhichCarrying(){
+  //     int equipmentObjectCountWhichCarrying = transform.childCount;
+  //     return equipmentObjectCountWhichCarrying;
   //   }
   public void SetEquipmentObject(EquipmentObject equipmentObject)
   {

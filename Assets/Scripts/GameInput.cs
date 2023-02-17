@@ -5,15 +5,23 @@ using UnityEngine;
 
 public class GameInput : MonoBehaviour
 {
+  public event EventHandler OnClickAction;
   public event EventHandler OnInteractAction;
   private PlayerInputActions playerInputActions;
   private void Awake()
   {
     playerInputActions = new PlayerInputActions();
     playerInputActions.Player.Enable();
-    playerInputActions.Player.Interract.performed += Interract_performed;
+    playerInputActions.Player.Interact.performed += Interact_performed;
+    playerInputActions.Inventory.Click.performed += Click_performed;
+    playerInputActions.Inventory.Enable();
   }
-  private void Interract_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+  private void Click_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+  {
+    OnClickAction?.Invoke(this, EventArgs.Empty);
+  }
+
+  private void Interact_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
   {
     if (OnInteractAction != null)
     {
@@ -23,7 +31,8 @@ public class GameInput : MonoBehaviour
   }
   public Vector2 GetMovementVectorNormalized()
   {
-    Vector2 inputVector = playerInputActions.Player.Move.ReadValue<Vector2>();
+    Vector2 inputVector = new Vector2();
+    inputVector = playerInputActions.Player.Move.ReadValue<Vector2>();
 
     inputVector = inputVector.normalized;
     // Debug.Log(inputVector);

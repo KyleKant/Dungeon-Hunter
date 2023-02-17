@@ -24,3 +24,8 @@ Packages/
 *.config
 Temp/
 UserSettings/
+*.fake
+*.svg
+Samples/
+Scenes/
+TextMesh Pro/

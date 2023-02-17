@@ -7,7 +7,7 @@ public class Player : MonoBehaviour, IEquipmentObjectParent
 {
   private const int LEFT_MOUSE = 0;
   private const int RIGHT_MOUSE = 1;
-  private const int MIDLE_MOUSE = 2;
+  private const int MIDDLE_MOUSE = 2;
 
   private const string EQUIPMENT_OBJECT_DROP_POINT = "EquipmentObjectDropPoint";
   public const string EQUIPMENT_OBJECT_HOLD_POINT = "EquipmentObjectHoldPoint";
@@ -50,6 +50,7 @@ public class Player : MonoBehaviour, IEquipmentObjectParent
   {
     gameInput.OnInteractAction += GameInput_OnInteractAction;
   }
+
   private void GameInput_OnInteractAction(object sender, System.EventArgs e)
   {
     if (selectedObject != null)
