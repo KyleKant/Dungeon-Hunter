@@ -4,27 +4,21 @@ using UnityEngine;
 
 public class TableObject : BaseStorage
 {
-  // [SerializeField] private EquipmentObjectSO equipmentObjectSO;
-  // private tableTopPoint;
   private const string TABLE_TOP_POINT = "TableTopPoint";
   public override void Interact(Player player)
   {
-    // Debug.Log("Player have something? " + player.HasEquipmentObject());
-    // Debug.Log("Table have something? " + HasEquipmentObject());
-    if (!HasEquipmentObject())
+    if (!HasItemObject())
     {
       // There is nothing on the table object
-      if (player.HasEquipmentObject())
+      if (player.HasItemObject())
       {
         // player is carrying something
-        if (player.equipmentObjectList.Count != 0)
+        if (player.itemObjectList.Count != 0)
         {
-          EquipmentObject equipmentObjectFirstDrop = player.equipmentObjectList[0];
-          player.equipmentObjectList.Remove(equipmentObjectFirstDrop);
-          // equipmentObjectFirstDrop.transform.SetParent(this.transform);
-          player.GetEquipmentObject(equipmentObjectFirstDrop).SetEquipmentObjectParent(this);
-          // player.SetEquipmentObject()
-          this.SetEquipmentObject(equipmentObjectFirstDrop);
+          ItemController itemObjectFirstDrop = player.itemObjectList[0];
+          player.itemObjectList.Remove(itemObjectFirstDrop);
+          player.GetItemObject(itemObjectFirstDrop).SetItemObjectParent(this);
+          this.SetItemObject(itemObjectFirstDrop);
         }
       }
       else
@@ -35,16 +29,15 @@ public class TableObject : BaseStorage
     else
     {
       // There is something on the table object
-      if (!player.HasEquipmentObject())
+      if (!player.HasItemObject())
       {
         // player is not carrying something
-        this.GetEquipmentObject(equipmentObject).SetEquipmentObjectParent(player);
-        Debug.Log("EquipmentObject: " + equipmentObject);
+        this.GetItemObject(itemObject).SetItemObjectParent(player);
       }
       else
       {
         // player is carrying something
-        this.GetEquipmentObject(equipmentObject).SetEquipmentObjectParent(player);
+        this.GetItemObject(itemObject).SetItemObjectParent(player);
       }
     }
   }

@@ -4,17 +4,15 @@ using UnityEngine;
 
 public class BossMonster : BaseStorage
 {
-  [SerializeField] private EquipmentObjectSO[] equipmentObjectSOArray;
-  private EquipmentObjectSO equipmentObjectSO;
-  private int randomEquipmentObjectSO;
+  [SerializeField] private ItemObjectSO[] itemObjectSOs;
+  private ItemObjectSO itemObjectSO;
+  private int randomItemObjectSO;
 
   public override void Interact(Player player)
   {
-    randomEquipmentObjectSO = Random.Range(0, equipmentObjectSOArray.Length);
-    equipmentObjectSO = equipmentObjectSOArray[randomEquipmentObjectSO];
-    EquipmentObject.SpawnEquipmentObject(equipmentObjectSO, this);
-    // Transform equipmentObjectTransform = Instantiate(equipmentObjectSO.prefab);
-    // equipmentObjectTransform.GetComponent<EquipmentObject>().SetEquipmentObjectParent(this);
+    randomItemObjectSO = Random.Range(0, itemObjectSOs.Length);
+    itemObjectSO = itemObjectSOs[randomItemObjectSO];
+    ItemController.SpawnItemObject(itemObjectSO, this);
 
   }
 }

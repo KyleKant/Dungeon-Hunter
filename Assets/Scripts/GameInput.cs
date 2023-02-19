@@ -13,12 +13,20 @@ public class GameInput : MonoBehaviour
     playerInputActions = new PlayerInputActions();
     playerInputActions.Player.Enable();
     playerInputActions.Player.Interact.performed += Interact_performed;
-    playerInputActions.Inventory.Click.performed += Click_performed;
-    playerInputActions.Inventory.Enable();
+    playerInputActions.UI.Enable();
+    playerInputActions.UI.Click.performed += Click_performed;
+    // playerInputActions.UI.Point.performed += Point_performed;
   }
+
+  // private void Point_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+  // {
+  //   Debug.Log("obj: " + obj);
+  // }
   private void Click_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
   {
     OnClickAction?.Invoke(this, EventArgs.Empty);
+    Debug.Log("position mouse: " + GetMousePosition());
+
   }
 
   private void Interact_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
@@ -37,6 +45,13 @@ public class GameInput : MonoBehaviour
     inputVector = inputVector.normalized;
     // Debug.Log(inputVector);
 
+    return inputVector;
+  }
+
+  public Vector2 GetMousePosition()
+  {
+    Vector2 inputVector = new Vector2();
+    inputVector = playerInputActions.UI.Point.ReadValue<Vector2>();
     return inputVector;
   }
 }

@@ -6,7 +6,8 @@ using UnityEngine;
 public class ItemObjectSO : ScriptableObject
 {
   public int id;
+  public Transform prefab;
   public string itemName;
-  public int value;
+  public int buffValue;
   public Sprite itemIcon;
 }

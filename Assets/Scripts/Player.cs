@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IEquipmentObjectParent
+public class Player : MonoBehaviour, IItemParent
 {
   private const int LEFT_MOUSE = 0;
   private const int RIGHT_MOUSE = 1;
@@ -24,9 +24,8 @@ public class Player : MonoBehaviour, IEquipmentObjectParent
   [SerializeField] private Transform equipmentObjectHoldPoint;
   [SerializeField] private Transform equipmentObjectDropPoint;
   private BaseStorage selectedObject;
-  // private EquipmentObject[] equipmentObjectArray;
-  private EquipmentObject equipmentObject;
-  public List<EquipmentObject> equipmentObjectList = new List<EquipmentObject>();
+  private ItemController itemObject;
+  public List<ItemController> itemObjectList = new List<ItemController>();
   private FloorObject floorObject;
   private bool isRunning;
   private bool isWalking;
@@ -36,7 +35,7 @@ public class Player : MonoBehaviour, IEquipmentObjectParent
   private int pressedNumlockCounter = 0;
   private int clickLeftMouseCounter = 0;
   private Vector3 lastInteractDir;
-  private List<Transform> equipmentObjectDropList = new List<Transform>();
+  private List<Transform> itemObjectDropList = new List<Transform>();
 
   private void Awake()
   {
@@ -74,17 +73,17 @@ public class Player : MonoBehaviour, IEquipmentObjectParent
   {
     if (!HasSelectedObject())
     {
-      if (equipmentObjectList.Count != 0)
+      if (itemObjectList.Count != 0)
       {
-        EquipmentObject equipmentObjectFirstDrop = equipmentObjectList[0];
-        equipmentObjectList.Remove(equipmentObjectFirstDrop);
+        ItemController itemObjectFirstDrop = itemObjectList[0];
+        itemObjectList.Remove(itemObjectFirstDrop);
         floorObject = GameObject.FindObjectOfType<FloorObject>();
-        equipmentObjectFirstDrop.transform.SetParent(floorObject.transform.Find(EQUIPMENT_OBJECT_DROP_POINT));
-        equipmentObjectFirstDrop.transform.position = equipmentObjectDropPoint.position;
+        itemObjectFirstDrop.transform.SetParent(floorObject.transform.Find(EQUIPMENT_OBJECT_DROP_POINT));
+        itemObjectFirstDrop.transform.position = equipmentObjectDropPoint.position;
       }
-      if (equipmentObjectList.Count == 0)
+      if (itemObjectList.Count == 0)
       {
-        ClearEquipmentObject();
+        ClearItemObject();
       }
     }
     else
@@ -284,30 +283,29 @@ public class Player : MonoBehaviour, IEquipmentObjectParent
     });
   }
 
-  public Transform GetEquipmentObjectFollowTransform()
+  public Transform GetItemObjectFollowTransform()
   {
     return equipmentObjectHoldPoint;
   }
-  public void SetEquipmentObject(EquipmentObject equipmentObject)
+  public void SetItemObject(ItemController itemObject)
   {
-    this.equipmentObject = equipmentObject;
-    equipmentObjectList.Add(this.equipmentObject);
+    this.itemObject = itemObject;
+    itemObjectList.Add(itemObject);
   }
-  public EquipmentObject GetEquipmentObject(EquipmentObject equipmentObject)
+  public ItemController GetItemObject(ItemController itemObject)
   {
-    return equipmentObject;
+    return itemObject;
   }
-  public void ClearEquipmentObject()
+  public void ClearItemObject()
   {
-    if (equipmentObjectList.Count == 0)
+    if (itemObjectList.Count == 0)
     {
-      equipmentObject = null;
+      itemObject = null;
     }
   }
-  public bool HasEquipmentObject()
+  public bool HasItemObject()
   {
-    // Debug.Log("equipmentObject1: " + equipmentObject);
-    return equipmentObject != null;
+    return itemObject != null;
   }
   public bool HasSelectedObject()
   {
