@@ -6,8 +6,9 @@ using UnityEngine.UI;
 
 public class GameInput : MonoBehaviour
 {
-  public event EventHandler OnClickAction;
   public event EventHandler OnInteractAction;
+  public event EventHandler OnClickAction;
+  public event EventHandler OnToggleInventoryAction;
   private PlayerInputActions playerInputActions;
   private bool focus = true;
   private void Awake()
@@ -17,14 +18,8 @@ public class GameInput : MonoBehaviour
     playerInputActions.Player.Interact.performed += Interact_performed;
     playerInputActions.UI.Enable();
     playerInputActions.UI.Click.performed += Click_performed;
-    playerInputActions.Player.Focus.Enable();
-    // playerInputActions.UI.Point.performed += Point_performed;
+    playerInputActions.UI.ToggleInventory.performed += ToggleInventory_performed;
   }
-
-  // private void Point_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
-  // {
-  //   Debug.Log("obj: " + obj);
-  // }
   private void Click_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
   {
     OnClickAction?.Invoke(this, EventArgs.Empty);
@@ -39,6 +34,10 @@ public class GameInput : MonoBehaviour
       OnInteractAction(this, EventArgs.Empty);
     }
     // OnInteractAction?.Invoke(this, EventArgs.Empty);
+  }
+  private void ToggleInventory_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+  {
+    OnToggleInventoryAction?.Invoke(this, EventArgs.Empty);
   }
   public Vector2 GetMovementVector()
   {
@@ -61,7 +60,6 @@ public class GameInput : MonoBehaviour
     if (playerInputActions.Player.Focus.triggered)
     {
       focus = !focus;
-      Debug.Log("focus: " + focus);
     }
     return focus;
   }
