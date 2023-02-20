@@ -33,13 +33,22 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Look",
-                    "type": "Value",
-                    "id": "d7cf813e-271f-4b50-821e-06981ce3e62d",
-                    "expectedControlType": "Vector2",
+                    "name": "Focus",
+                    "type": "Button",
+                    "id": "ed05cb4a-55a5-4929-b35f-c5645b323105",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Look",
+                    "type": "PassThrough",
+                    "id": "33a02cb3-f293-4002-bd19-8d619f13bb22",
+                    "expectedControlType": "Delta",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -188,7 +197,18 @@
                 },
                 {
                     "name": "",
-                    "id": "8a98152b-1896-42e1-b888-95e6e7efc556",
+                    "id": "8c6bba1e-c72f-4d02-939f-a004a28caa5b",
+                    "path": "<Keyboard>/alt",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse & KeyBoard",
+                    "action": "Focus",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3fc5e78a-7fab-4204-ab1f-8fd07f24429d",
                     "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
@@ -220,6 +240,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Scroll",
+                    "type": "PassThrough",
+                    "id": "29b55857-a440-495a-88fe-7ebb7e37a48b",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -242,6 +271,17 @@
                     "processors": "",
                     "groups": "Mouse & KeyBoard",
                     "action": "Point",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c8bcc78a-b4c3-43d2-a09f-2f5bf300b6b9",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse & KeyBoard",
+                    "action": "Scroll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

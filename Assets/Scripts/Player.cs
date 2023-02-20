@@ -20,9 +20,11 @@ public class Player : MonoBehaviour, IItemParent
   [SerializeField] private GameInput gameInput;
   [SerializeField] private float runSpeed = 7f;
   [SerializeField] private float walkSpeed = 2f;
+  [SerializeField] private float rotationSpeed;
   [SerializeField] private LayerMask baseStorageLayerMask;
   [SerializeField] private Transform equipmentObjectHoldPoint;
   [SerializeField] private Transform equipmentObjectDropPoint;
+  [SerializeField] private Transform transformCamera;
   private BaseStorage selectedObject;
   private ItemController itemObject;
   public List<ItemController> itemObjectList = new List<ItemController>();
@@ -67,6 +69,7 @@ public class Player : MonoBehaviour, IItemParent
   {
     HandleMovement();
     HandleInteractions();
+    FocusOnGame();
   }
 
   private void HandleDropEquipment()
@@ -95,7 +98,8 @@ public class Player : MonoBehaviour, IItemParent
   private void HandleInteractions()
   {
     float interactDistance = 2f;
-    Vector2 inputVector = gameInput.GetMovementVectorNormalized();
+    Vector2 inputVector = gameInput.GetMovementVector();
+    inputVector.Normalize();
     Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
     if (moveDir != Vector3.zero)
     {
@@ -124,9 +128,11 @@ public class Player : MonoBehaviour, IItemParent
   }
   private void HandleMovement()
   {
-    Vector2 inputVector = gameInput.GetMovementVectorNormalized();
+    Vector2 inputVector = gameInput.GetMovementVector();
+    inputVector.Normalize();
     Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
 
+    moveDir = Quaternion.AngleAxis(transformCamera.rotation.eulerAngles.y, Vector3.up) * moveDir;
     // Set isIdle flag
     if (moveDir == Vector3.zero)
     {
@@ -214,9 +220,13 @@ public class Player : MonoBehaviour, IItemParent
       }
     }
 
-    float rotationSpeed = 10f;
     // rotate player
-    transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotationSpeed);
+    if (moveDir != Vector3.zero)
+    {
+      transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotationSpeed);
+      // Quaternion toRotation = Quaternion.LookRotation(moveDir, Vector3.up);
+      // transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, Time.deltaTime * rotationSpeed);
+    }
     // Debug.Log(isRunning);
 
     // Event click to player attack
@@ -310,5 +320,17 @@ public class Player : MonoBehaviour, IItemParent
   public bool HasSelectedObject()
   {
     return selectedObject != null;
+  }
+
+  private void FocusOnGame()
+  {
+    if (gameInput.ToggleFocus())
+    {
+      Cursor.lockState = CursorLockMode.Locked;
+    }
+    else
+    {
+      Cursor.lockState = CursorLockMode.None;
+    }
   }
 }

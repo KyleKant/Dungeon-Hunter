@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameInput : MonoBehaviour
 {
   public event EventHandler OnClickAction;
   public event EventHandler OnInteractAction;
   private PlayerInputActions playerInputActions;
+  private bool focus = true;
   private void Awake()
   {
     playerInputActions = new PlayerInputActions();
@@ -15,6 +17,7 @@ public class GameInput : MonoBehaviour
     playerInputActions.Player.Interact.performed += Interact_performed;
     playerInputActions.UI.Enable();
     playerInputActions.UI.Click.performed += Click_performed;
+    playerInputActions.Player.Focus.Enable();
     // playerInputActions.UI.Point.performed += Point_performed;
   }
 
@@ -25,7 +28,7 @@ public class GameInput : MonoBehaviour
   private void Click_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
   {
     OnClickAction?.Invoke(this, EventArgs.Empty);
-    Debug.Log("position mouse: " + GetMousePosition());
+    // Debug.Log("position mouse: " + GetMousePosition());
 
   }
 
@@ -37,13 +40,12 @@ public class GameInput : MonoBehaviour
     }
     // OnInteractAction?.Invoke(this, EventArgs.Empty);
   }
-  public Vector2 GetMovementVectorNormalized()
+  public Vector2 GetMovementVector()
   {
     Vector2 inputVector = new Vector2();
     inputVector = playerInputActions.Player.Move.ReadValue<Vector2>();
 
-    inputVector = inputVector.normalized;
-    // Debug.Log(inputVector);
+    // inputVector = inputVector.normalized;
 
     return inputVector;
   }
@@ -53,5 +55,14 @@ public class GameInput : MonoBehaviour
     Vector2 inputVector = new Vector2();
     inputVector = playerInputActions.UI.Point.ReadValue<Vector2>();
     return inputVector;
+  }
+  public bool ToggleFocus()
+  {
+    if (playerInputActions.Player.Focus.triggered)
+    {
+      focus = !focus;
+      Debug.Log("focus: " + focus);
+    }
+    return focus;
   }
 }

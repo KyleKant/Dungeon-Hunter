@@ -9,6 +9,7 @@ public class InventoryItemController : MonoBehaviour
   {
     InventoryManager.Instance.Remove(itemObjectSO);
     Destroy(gameObject);
+    Debug.Log("Destroy: " + gameObject);
   }
   public void AddItem(ItemObjectSO newItem)
   {
